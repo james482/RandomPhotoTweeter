@@ -48,7 +48,7 @@ except IOError:
                    }
 
             monday = ['I love Mondays', 'I cant believe its already Monday', 'It\'s Monday']
-            tuesday = ['I love Tuesdays', 'I cant believe its already Tuesday', 'It\'sTuesday']
+            tuesday = ['I love Tuesdays', 'I cant believe its already Tuesday', 'It\'s Tuesday']
             wednesday = ['I love Wednesdays', 'I cant believe its already Wednesday', 'It\'s Wednesday']
             thursday = ['I love Thursdays', 'I cant believe its already Thursday', 'It\'s Thursday']
             friday = ['I love Fridays', 'I cant believe its already Friday', 'It\'s Friday']
