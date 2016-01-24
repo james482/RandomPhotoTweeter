@@ -1,5 +1,8 @@
 # Random Photo Tweeter
 
+## Dependencies
+**Tweepy:** [tweepy](https://github.com/tweepy/tweepy)
+
 ## Introduction
 Thee Random Photo Tweeter will automatically select a random photo from a file  of your choice and tweet it to your account along with a random status depending on the day of the week. It remembers the last photo tweeted so never tweets the same photo twice in a row! 
 
