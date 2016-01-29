@@ -6,8 +6,8 @@ import datetime
 
 def post(conf, dir):
     settings = conf
-    file_type = settings.file_type()
-    max_size = settings.max_size()
+    file_type = settings.get_file_types()
+    max_size = settings.get_max_size()
     pic_last = settings.get_old_pic()
     today = datetime.datetime.now().strftime("%A")
 
@@ -24,7 +24,7 @@ def post(conf, dir):
         pic = os.path.join(dir, random.choice(os.listdir(dir)))
 
     logging.debug('Posting: ' + pic)
-    status = settings.get_status_day(today)
+    status = random.choice(settings.get_status_day(today))
 
     p = [pic, status]
     return p
