@@ -2,13 +2,13 @@ import os
 import logging
 import random
 import datetime
+import tweet
 
 
 def post(conf, dir):
-    settings = conf
-    file_type = settings.get_file_types()
-    max_size = settings.get_max_size()
-    pic_last = settings.get_old_pic()
+    file_type = conf.get_file_types()
+    max_size = conf.get_max_size()
+    pic_last = conf.get_old_pic()
     today = datetime.datetime.now().strftime("%A")
 
     pic = os.path.join(dir, random.choice(os.listdir(dir)))
@@ -24,7 +24,8 @@ def post(conf, dir):
         pic = os.path.join(dir, random.choice(os.listdir(dir)))
 
     logging.debug('Posting: ' + pic)
-    status = random.choice(settings.get_status_day(today))
+    status = random.choice(conf.get_status_day(today))
 
     p = [pic, status]
-    return p
+    tweet.tweet_with_pic(conf, p)
+    return
