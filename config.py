@@ -91,7 +91,7 @@ class Config:
         return self.settings['key']['accessToken']
 
     def get_access_token_secret(self):
-        return self.settings['key']['accessToken']
+        return self.settings['key']['accessTokenSecret']
 
     def get_file_types(self):
         return tuple(self.settings['fileType'])
@@ -115,3 +115,4 @@ class Config:
     def __init__(self, dir):
         self.settings = self.__load(dir)
         self.dir = dir
+
