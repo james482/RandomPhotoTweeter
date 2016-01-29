@@ -1,15 +1,16 @@
 import os
 import sys
-import logging
-import tweepy
 import config
 import weekday
+import q
+import word
+import logging
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # is there a file path given
-if len(sys.argv) > 1:
-    dir = str(sys.argv[1])
+if len(sys.argv) > 2:
+    dir = str(sys.argv[2])
     while not os.path.exists(dir):
         dir = input('Not a valid file path, please try again: ')
 else:
@@ -17,28 +18,15 @@ else:
     while not os.path.exists(dir):
         dir = input('Not a valid file path, please try again: ')
 
-settings = config.Config(dir)
+conf = config.Config(dir)
 
-auth = tweepy.OAuthHandler(settings.consumer_key(), settings.consumer_secret())
-auth.secure = True
-auth.set_access_token(settings.access_token(), settings.access_token_secret())
+mode = sys.argv[1]
 
-tweet = tweepy.API(auth)
+if mode == 'weekday':
+    weekday.post(conf, dir)
+elif mode == 'queue':
+    q.post(conf, dir)
+elif mode == 'word':
+    word.post(conf, dir)
 
-post = weekday.post(settings, dir)
 
-pic = post[0]
-status = post[1]
-try:
-    logging.disable(logging.INFO)
-    tweet.update_with_media(pic, status=status)
-    logging.disable(logging.NOTSET)
-except:
-    print('Authentication failed, please check your keys in the congif file.')
-    os.system("Pause")
-    sys.exit(1)
-
-settings.set_old_pic(pic)
-settings.save()
-
-logging.debug('Done, successfully posted: ' + pic + ', with the status: ' + status)
