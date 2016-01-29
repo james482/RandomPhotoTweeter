@@ -31,8 +31,7 @@ pic = post[0]
 status = post[1]
 try:
     logging.disable(logging.INFO)
-    #tweet.update_with_media(pic, status=status)
-    os.startfile(pic)
+    tweet.update_with_media(pic, status=status)
     logging.disable(logging.NOTSET)
 except:
     print('Authentication failed, please check your keys in the congif file.')
