@@ -1,0 +1,30 @@
+import os
+import logging
+import random
+import datetime
+
+
+def post(conf, dir):
+    settings = conf
+    file_type = settings.file_type()
+    max_size = settings.max_size()
+    pic_last = settings.get_old_pic()
+    today = datetime.datetime.now().strftime("%A")
+
+    pic = os.path.join(dir, random.choice(os.listdir(dir)))
+
+    while (pic == pic_last) or (os.path.getsize(pic) > (max_size * 1000000)) or (not pic.endswith(file_type)):
+        if pic == pic_last:
+            logging.debug('Same pic: ' + pic)
+        elif not pic.endswith(file_type):
+            logging.debug('Not a pic: ' + pic)
+        elif os.path.getsize(pic) > (max_size * 1000000):
+            logging.debug('Pic too big: ' + pic)
+
+        pic = os.path.join(dir, random.choice(os.listdir(dir)))
+
+    logging.debug('Posting: ' + pic)
+    status = settings.get_status_day(today)
+
+    p = [pic, status]
+    return p
