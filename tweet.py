@@ -36,7 +36,6 @@ def tweet_with_pic(conf, post):
     try:
         logging.disable(logging.INFO)
         t.update_with_media(pic, status=status)
-        os.startfile(pic)
         logging.disable(logging.NOTSET)
     except:
         print('Authentication failed, please check your keys in the congif file.')
