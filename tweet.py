@@ -15,7 +15,8 @@ def tweet(conf, post):
         t.update_status(post)
         logging.disable(logging.NOTSET)
     except:
-        print('Authentication failed, please check your keys in the config file.')
+        logging.error('Authentication failed, please check your keys in the config file.')
+        logging.error('Or could be a duplicate tweet.')
         os.system("Pause")
         sys.exit(1)
 
@@ -38,7 +39,7 @@ def tweet_with_pic(conf, post):
         t.update_with_media(pic, status=status)
         logging.disable(logging.NOTSET)
     except:
-        print('Authentication failed, please check your keys in the congif file.')
+        logging.error('Authentication failed, please check your keys in the congif file.')
         os.system("Pause")
         sys.exit(1)
 
