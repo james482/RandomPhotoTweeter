@@ -3,6 +3,17 @@ import logging
 import random
 import datetime
 import tweet
+import sys
+
+
+def get_size(pic, max_size):
+    try:
+        if os.path.getsize(pic) > (max_size * 1000000):
+            return True
+        else:
+            return False
+    except PermissionError:
+        return True
 
 
 def post(conf, dir):
@@ -11,17 +22,21 @@ def post(conf, dir):
     pic_last = conf.get_old_pic()
     today = datetime.datetime.now().strftime("%A")
 
-    pic = os.path.join(dir, random.choice(os.listdir(dir)))
+    # load files into a list
+    files = os.listdir(dir)
+    # shuffle the list
+    random.shuffle(files)
 
-    while (pic == pic_last) or (os.path.getsize(pic) > (max_size * 1000000)) or (not pic.endswith(file_type)):
-        if pic == pic_last:
-            logging.debug('Same pic: ' + pic)
-        elif not pic.endswith(file_type):
-            logging.debug('Not a pic: ' + pic)
-        elif os.path.getsize(pic) > (max_size * 1000000):
-            logging.debug('Pic too big: ' + pic)
-
-        pic = os.path.join(dir, random.choice(os.listdir(dir)))
+    # try popping until one is found
+    try:
+        pic = os.path.join(dir, files.pop())
+        while (pic == pic_last) or get_size(pic, max_size) or (not pic.endswith(file_type)):
+            pic = os.path.join(dir, files.pop())
+    # exit if non are found
+    except IndexError:
+        logging.error('No suitable picture found.')
+        os.system("Pause")
+        sys.exit(1)
 
     logging.debug('Posting: ' + pic)
     status = random.choice(conf.get_status_day(today))
