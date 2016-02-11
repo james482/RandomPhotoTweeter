@@ -41,7 +41,7 @@ def post(conf, dir):
     try:
         status = random.choice(conf.get_status_day(today))
     except IndexError:
-        logging.error('No statusus set for ' + today + '.')
+        logging.error('No statuses set for ' + today + '.')
         os.system("Pause")
         sys.exit(1)
 
