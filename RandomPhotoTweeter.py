@@ -5,6 +5,7 @@ import weekday
 import q
 import word
 import logging
+import quote
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -20,13 +21,18 @@ else:
 
 conf = config.Config(dir)
 
+# set the mode
 mode = sys.argv[1]
 
 if mode == 'weekday':
     weekday.post(conf, dir)
 elif mode == 'queue':
-    q.post(conf, dir)
+    q.post(conf)
 elif mode == 'word':
     word.post(conf, dir)
-
-
+elif mode == 'quote':
+    quote.post(conf, dir)
+else:
+    logging.error('Invalid mode.')
+    os.system("Pause")
+    sys.exit(1)
