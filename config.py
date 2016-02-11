@@ -5,6 +5,7 @@ import json
 
 
 class Config:
+    # create the cofig format
     def __create(self, dir):
         key = {'consumerKey': input('Enter your Consumer key: '),
                'consumerSecret': input('Enter your Consumer Secret: '),
@@ -21,6 +22,19 @@ class Config:
         sunday = ['I love Sundays', 'I cant believe its already Sunday', 'It\'s Sunday']
 
         queue = ['last', 'fourth', 'third', 'second', 'first']
+
+        word = [('One', 'This is the word One.'),
+                ('Two', 'This is the word Two.'),
+                ('Three', 'This is the word Three.')]
+
+        quote = [('James Doel', 'In the words of James', '#ff0000', 'pic.jpg',
+                  'Python is fun, it can do almost ANYTHING... almost.'),
+                 ('Salvador Dali', 'As he says:', '#b3b3ff', 'pic.jpg',
+                  'Have no fear of perfection, you\'ll never reach it.')]
+
+        font = ('arial.ttf', 'calibri.ttf', 'comic.ttf')
+
+        wordColour = (('#730099', '#3399FF'), ('#e60000', '#00cc00'), ('#ffffff', '#0000ff'))
 
         status = {'Monday': monday,
                   'Tuesday': tuesday,
@@ -39,6 +53,10 @@ class Config:
         settings = {'key': key,
                     'status': status,
                     'queue': queue,
+                    'word': word,
+                    'quote': quote,
+                    'font': font,
+                    'wordColour': wordColour,
                     'oldPic': oldPic,
                     'fileType': fileType,
                     'maxSize': maxSize}
@@ -56,11 +74,12 @@ class Config:
 
             try:
                 settings = json.load(f)
-            except:
-                input('Config file corrupted.')
                 f.close()
+            except:
+                logging.error('Congif file corrupted.')
+                f.close()
+                os.system("Pause")
                 sys.exit(1)
-            f.close()
         except IOError:
             fileMade = False
             print('No config file in that location, creating one now..')
@@ -112,7 +131,18 @@ class Config:
     def get_queue(self):
         return self.settings['queue']
 
+    def get_word(self):
+        return self.settings['word']
+
+    def get_quote(self):
+        return self.settings['quote']
+
+    def get_font(self):
+        return self.settings['font']
+
+    def get_word_colour(self):
+        return self.settings['wordColour']
+
     def __init__(self, dir):
         self.settings = self.__load(dir)
         self.dir = dir
-
