@@ -38,9 +38,14 @@ def post(conf, dir):
         os.system("Pause")
         sys.exit(1)
 
-    logging.debug('Posting: ' + pic)
-    status = random.choice(conf.get_status_day(today))
+    try:
+        status = random.choice(conf.get_status_day(today))
+    except IndexError:
+        logging.error('No statusus set for ' + today + '.')
+        os.system("Pause")
+        sys.exit(1)
 
+    logging.debug('Posting: ' + pic)
     p = [pic, status]
     tweet.tweet_with_pic(conf, p)
     return
