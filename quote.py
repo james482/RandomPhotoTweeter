@@ -3,7 +3,6 @@ from PIL import ImageFont
 from PIL import ImageDraw
 from PIL import ImageFilter
 import os
-import sys
 import tweet
 import random
 import textwrap
@@ -47,9 +46,7 @@ def post(conf, dir):
     try:
         font = ImageFont.truetype(ttf, fontSize)
     except OSError:
-        logging.error('Invalid font file.')
-        os.system("Pause")
-        sys.exit(1)
+        conf.error('Invalid font file.')
     font = ImageFont.truetype(ttf, fontSize)
 
     # wrap the quote based on its size
@@ -83,9 +80,7 @@ def post(conf, dir):
         try:
             draw.text((wrapW, wrapH), line, font=font, fill=textColor)
         except ValueError:
-            logging.error('Invalid text colour.')
-            os.system("Pause")
-            sys.exit(1)
+            conf.error('Invalid text colour.')
 
         wrapH += font.getsize(line)[1]
 
@@ -108,9 +103,7 @@ def post(conf, dir):
     try:
         draw.text((width-wName-(width*0.1), height-h-(height*0.05)), name, font=font, fill=textColor)
     except ValueError:
-        logging.error('Invalid text colour.')
-        os.system("Pause")
-        sys.exit(1)
+        conf.error('Invalid text colour.')
 
     logging.debug('Created the picture at: ' + os.path.join(dir, 'pic.png'))
     logging.debug('Make a copy now if you wish to keep it.')

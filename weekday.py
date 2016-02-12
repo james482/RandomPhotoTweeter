@@ -3,7 +3,6 @@ import logging
 import random
 import datetime
 import tweet
-import sys
 
 
 def get_size(pic, max_size):
@@ -34,16 +33,12 @@ def post(conf, dir):
             pic = os.path.join(dir, files.pop())
     # exit if non are found
     except IndexError:
-        logging.error('No suitable picture found.')
-        os.system("Pause")
-        sys.exit(1)
+        conf.error('No suitable picture found.')
 
     try:
         status = random.choice(conf.get_status_day(today))
     except IndexError:
-        logging.error('No statuses set for ' + today + '.')
-        os.system("Pause")
-        sys.exit(1)
+        conf.error('No statuses set for ' + today + '.')
 
     logging.debug('Posting: ' + pic)
     p = [pic, status]

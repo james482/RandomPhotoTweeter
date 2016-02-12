@@ -1,6 +1,4 @@
 import tweepy
-import os
-import sys
 import logging
 
 
@@ -15,10 +13,8 @@ def tweet(conf, post):
         t.update_status(post)
         logging.disable(logging.NOTSET)
     except:
-        logging.error('Authentication failed, please check your keys in the config file.')
-        logging.error('Or could be a duplicate tweet.')
-        os.system("Pause")
-        sys.exit(1)
+        conf.error('Authentication failed, please check your keys in the config file,'
+                   'Or could be a duplicate tweet.')
 
     conf.save()
 
@@ -39,9 +35,7 @@ def tweet_with_pic(conf, post):
         t.update_with_media(pic, status=status)
         logging.disable(logging.NOTSET)
     except:
-        logging.error('Authentication failed, please check your keys in the congif file.')
-        os.system("Pause")
-        sys.exit(1)
+        conf.error('Authentication failed, please check your keys in the congif file.')
 
     conf.set_old_pic(pic)
     conf.save()

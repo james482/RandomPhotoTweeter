@@ -4,15 +4,15 @@
 **Tweepy:** [tweepy](https://github.com/tweepy/tweepy)
 
 ## Introduction
-Thee Random Photo Tweeter will automatically select a random photo from a file  of your choice and tweet it to your account along with a random status depending on the day of the week. It remembers the last photo tweeted so never tweets the same photo twice in a row! 
+The Random Photo Tweeter will automatically select a random photo from a file  of your choice and tweet it to your account along with a random status depending on the day of the week. It remembers the last photo tweeted so never tweets the same photo twice in a row! 
 
-**Beware:** Once set up the Random Photo Twitter will post to your Twitter page when run with **no confirmation** required
+**Beware:** Once set up the Random Photo Twitter will post to your Twitter page automatically when run with **no confirmation** required
 
 ## Getting started
 ### Linking your phone to your account
 To link the Random Photo Tweeter with your Twitter account you must have added your mobile phone to your Twitter account. 
 
-		If you have done this already skip to the next stage
+        If you have done this already skip to the next stage
 	
 1. Go to your twitter setting page
 2. Click the **Mobile** tab down the side

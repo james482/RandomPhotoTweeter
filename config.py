@@ -27,9 +27,9 @@ class Config:
                 ('Two', 'This is the word Two.'),
                 ('Three', 'This is the word Three.')]
 
-        quote = [('James Doel', 'In the words of James', '#ff0000', 'pic.jpg',
+        quote = [('James Doel', 'In the words of James', '#ff0000', 'D:\James Doel\Test\2.jpg',
                   'Python is fun, it can do almost ANYTHING... almost.'),
-                 ('Salvador Dali', 'As he says:', '#b3b3ff', 'pic.jpg',
+                 ('Salvador Dali', 'As he says:', '#b3b3ff', 'D:\James Doel\Test\3.jpg',
                   'Have no fear of perfection, you\'ll never reach it.')]
 
         font = ('arial.ttf', 'calibri.ttf', 'comic.ttf')
@@ -50,6 +50,8 @@ class Config:
 
         maxSize = 3
 
+        pauseOnErrors = False
+
         settings = {'key': key,
                     'status': status,
                     'queue': queue,
@@ -59,7 +61,8 @@ class Config:
                     'wordColour': wordColour,
                     'oldPic': oldPic,
                     'fileType': fileType,
-                    'maxSize': maxSize}
+                    'maxSize': maxSize,
+                    'pauseOnErrors': pauseOnErrors}
 
         f = open(os.path.join(dir, 'config.json'), 'w')
         json.dump(settings, f, indent=4)
@@ -76,9 +79,8 @@ class Config:
                 settings = json.load(f)
                 f.close()
             except:
-                logging.error('Congif file corrupted.')
                 f.close()
-                os.system("Pause")
+                logging.error('Congif file corrupted.')
                 sys.exit(1)
         except IOError:
             fileMade = False
@@ -92,8 +94,10 @@ class Config:
                     print('Exit now and open the config.json file if you wish to customize your statuses.')
                     input('Otherwise continue with the defaults.')
                 except:
-                    dir = input('Not a valid file path, please try again: ')
+                    dir = input('Not able to create config file, please try a new location: ')
         return settings
+
+
 
     def save(self):
         f = open(os.path.join(self.dir, 'config.json'), 'w')
@@ -142,6 +146,16 @@ class Config:
 
     def get_word_colour(self):
         return self.settings['wordColour']
+
+    def error(self, error):
+        if self.settings['pauseOnErrors'] == 'true':
+            logging.error(error)
+            os.system("Pause")
+            sys.exit(1)
+        else:
+            logging.error(error)
+            sys.exit(1)
+
 
     def __init__(self, dir):
         self.settings = self.__load(dir)

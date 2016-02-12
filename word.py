@@ -2,7 +2,6 @@ from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
 import os
-import sys
 import tweet
 import random
 import logging
@@ -24,18 +23,14 @@ def post(conf, dir):
     try:
         pic = Image.new("RGB", (width, height), bgColour)
     except ValueError:
-        logging.error('Invalid background colour.')
-        os.system("Pause")
-        sys.exit(1)
+        conf.error('Invalid background colour.')
 
     draw = ImageDraw.Draw(pic)
 
     try:
         font = ImageFont.truetype(ttf, fontSize)
     except OSError:
-        logging.error('Invalid font file.')
-        os.system("Pause")
-        sys.exit(1)
+        conf.error('Invalid font file.')
     w, h = font.getsize(word)
 
     # scale the word
@@ -49,9 +44,7 @@ def post(conf, dir):
     try:
         draw.text(((width-w)/2, (height-h)/2), word, font=font, fill=wordColour)
     except ValueError:
-        logging.error('Invalid text colour.')
-        os.system("Pause")
-        sys.exit(1)
+        conf.error('Invalid text colour.')
 
     logging.debug('Created the picture at: ' + os.path.join(dir, 'pic.png'))
     logging.debug('Make a copy now if you wish to keep it.')
